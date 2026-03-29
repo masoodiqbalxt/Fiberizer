@@ -17,7 +17,9 @@ import {
   User,
   AlertTriangle,
   Wrench,
-  Archive
+  Archive,
+  Sun,
+  Moon
 } from 'lucide-react'
 import { FiberHero3D } from './components/FiberHero3D'
 import { MapComponent } from './components/MapContainer'
@@ -35,6 +37,7 @@ import { Button } from './components/ui/Button'
 export default function App() {
   const [activeTab, setActiveTab] = useState('Dashboard')
   const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [theme, setTheme] = useState('dark')
 
   const tabs = [
     { name: 'Dashboard', icon: BarChart3 },
@@ -49,7 +52,9 @@ export default function App() {
   ]
 
   return (
-    <div className="flex h-screen w-full bg-slate-950 text-slate-50 overflow-hidden font-sans premium-gradient">
+    <div className={`flex h-screen w-full overflow-hidden font-sans premium-gradient relative transition-colors duration-500 ${theme === 'light' ? 'light-mode bg-slate-50 text-slate-900' : 'bg-slate-950 text-slate-50'}`}>
+      <div className="cyber-grid" />
+      <div className="tech-scanline" />
       {/* Mobile Overlay */}
       {sidebarOpen && (
         <div 
@@ -64,9 +69,17 @@ export default function App() {
       >
         <div className="p-4 md:p-6 flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
-            <Zap className="w-5 h-5 text-white" />
+            <Zap className="w-5 h-5 text-white animate-pulse" />
           </div>
-          {sidebarOpen && <h1 className="text-xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500 nav-logo">Fiberizer</h1>}
+          {sidebarOpen && (
+            <h1 
+               className="text-xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500 nav-logo cursor-pointer hover:opacity-80 transition-opacity"
+               onClick={() => window.location.reload()}
+               title="Reload Dashboard"
+            >
+               Fiberizer
+            </h1>
+          )}
         </div>
 
         <nav className="flex-1 px-3 space-y-1">
@@ -136,6 +149,13 @@ export default function App() {
                 />
               </div>
               <div className="flex items-center gap-2">
+                 <button 
+                  onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
+                  className="p-2 rounded-full hover:bg-slate-800 transition-colors text-slate-400 group relative z-50"
+                  title="Toggle Tech Theme"
+                 >
+                    {theme === 'dark' ? <Sun className="w-5 h-5 group-hover:text-amber-400 transition-colors" /> : <Moon className="w-5 h-5 group-hover:text-blue-500 transition-colors" />}
+                 </button>
                  <button 
                   onClick={() => toast('No new notifications', { icon: '🔔', style: { borderRadius: '10px', background: '#1e293b', color: '#fff' }})}
                   className="relative p-2 rounded-full hover:bg-slate-800 transition-colors"
