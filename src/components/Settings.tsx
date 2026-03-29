@@ -12,15 +12,15 @@ export function Settings() {
   }
 
   return (
-    <div className="h-full flex gap-8">
+    <div className="h-full flex flex-col md:flex-row gap-4 md:gap-8">
       
       {/* Sidebar Navigation */}
-      <div className="w-64 flex flex-col gap-2 shrink-0 h-full overflow-y-auto">
+      <div className="w-full md:w-64 flex md:flex-col gap-2 shrink-0 md:h-full overflow-x-auto md:overflow-x-visible md:overflow-y-auto pb-2 md:pb-0 custom-scrollbar">
          {['Profile', 'GIS Map Defaults', 'API Integration', 'Notifications', 'Theme & UI'].map((seg) => (
             <button
                key={seg}
                onClick={() => setActiveSegment(seg)}
-               className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all flex items-center gap-3 ${
+               className={`whitespace-nowrap md:w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all flex items-center gap-3 ${
                   activeSegment === seg 
                      ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30' 
                      : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-100 border border-transparent'
@@ -39,8 +39,8 @@ export function Settings() {
       {/* Main Settings Area */}
       <div className="flex-1 bg-slate-900/50 border border-white/10 rounded-xl overflow-hidden glass-morphism shadow-xl flex flex-col justify-between overflow-y-auto custom-scrollbar">
          
-         <div className="p-8 space-y-8">
-            <h2 className="text-2xl font-bold border-b border-white/10 pb-4">{activeSegment} Configuration</h2>
+         <div className="p-4 md:p-8 space-y-6 md:space-y-8">
+            <h2 className="text-xl md:text-2xl font-bold border-b border-white/10 pb-4">{activeSegment} Configuration</h2>
 
             {activeSegment === 'GIS Map Defaults' && (
                <div className="space-y-6">
@@ -71,13 +71,13 @@ export function Settings() {
 
             {activeSegment === 'Profile' && (
                <div className="space-y-6">
-                  <div className="flex items-center gap-6">
-                     <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-indigo-500 to-blue-500 flex items-center justify-center shadow-lg border-4 border-slate-900 shadow-blue-500/20">
+                  <div className="flex flex-col md:flex-row items-center gap-6">
+                     <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-indigo-500 to-blue-500 flex items-center justify-center shadow-lg border-4 border-slate-900 shadow-blue-500/20 shrink-0">
                         <User className="w-10 h-10 text-white" />
                      </div>
-                     <Button variant="outline" size="sm">Upload Avatar</Button>
+                     <Button variant="outline" size="sm" className="w-full md:w-auto">Upload Avatar</Button>
                   </div>
-                  <div className="grid grid-cols-2 gap-6 pt-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
                      <div>
                         <label className="block text-sm font-bold text-slate-400 mb-2">Display Name</label>
                         <input type="text" defaultValue="Enterprise Admin" className="w-full bg-slate-950/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500" />

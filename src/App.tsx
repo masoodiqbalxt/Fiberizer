@@ -50,11 +50,19 @@ export default function App() {
 
   return (
     <div className="flex h-screen w-full bg-slate-950 text-slate-50 overflow-hidden font-sans premium-gradient">
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[1999] md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
       <aside 
-        className={`${sidebarOpen ? 'w-64' : 'w-20'} h-full transition-all duration-300 glass-morphism border-r border-white/5 flex flex-col z-[2000]`}
+        className={`${sidebarOpen ? 'translate-x-0 w-64' : '-translate-x-full w-64 md:translate-x-0 md:w-20'} absolute md:relative h-full transition-all duration-300 glass-morphism border-r border-white/5 flex flex-col z-[2000]`}
       >
-        <div className="p-6 flex items-center gap-3">
+        <div className="p-4 md:p-6 flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
             <Zap className="w-5 h-5 text-white" />
           </div>
@@ -101,7 +109,7 @@ export default function App() {
       {/* Main Content */}
       <main className="flex-1 flex flex-col relative overflow-hidden">
         {/* Header */}
-        <header className="h-20 px-8 flex items-center justify-between z-10 glass-morphism border-b border-white/5">
+        <header className="h-20 px-4 md:px-8 flex items-center justify-between z-10 glass-morphism border-b border-white/5 shrink-0">
            <div className="flex items-center gap-4">
               <Button 
                 variant="ghost" 
@@ -111,7 +119,7 @@ export default function App() {
               >
                 {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </Button>
-              <h2 className="text-2xl font-extrabold tracking-tight">{activeTab}</h2>
+              <h2 className="text-xl md:text-2xl font-extrabold tracking-tight truncate max-w-[140px] sm:max-w-none">{activeTab}</h2>
            </div>
            
            <div className="flex items-center gap-6">
@@ -146,7 +154,7 @@ export default function App() {
         </header>
 
         {/* Content Area */}
-        <div className="flex-1 overflow-y-auto w-full p-8 space-y-8 scroll-smooth">
+        <div className="flex-1 overflow-y-auto w-full p-4 md:p-8 space-y-6 md:space-y-8 scroll-smooth">
           <AnimatePresence mode="wait">
             {activeTab === 'Dashboard' && (
               <motion.div
